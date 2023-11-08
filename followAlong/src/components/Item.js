@@ -9,3 +9,5 @@ const Item = props => {
 };
 
 export default Item;
+
+// This is a functional component, what we are used to. 

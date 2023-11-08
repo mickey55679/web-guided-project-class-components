@@ -39,6 +39,16 @@ const groceries = [
 ];
 
 class App extends React.Component {
+  constructor(){
+    super(); // calling constructor inside my React.Component class. 
+    this.state = {
+      groceries: groceries // property pointing to the grocery list above this class, inside this file (look up)
+    }
+  }
+// in classes we have properties and methods, so you can just do this...
+  addItem = (e, item) => {
+    e.preventDefaults(); // this makes sure that if we click on something it doesn't refresh the page.
+  }
   // Class methods to update state
   render() {
     return (
