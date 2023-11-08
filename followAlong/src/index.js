@@ -56,18 +56,32 @@ class App extends React.Component {
     //now we need to update our state
     this.setState({...this.state, groceries: [...this.state.groceries, newItem] }) // this will overwrite our whole state object ... makes copy, with this.state we don't actually have to use the spread operator if we do not want to. 
     // we also overwrite groceries, and they are equal to what the groceries were, but we are also adding in our new item as well with the `newItem`
+    
   }
-
+  toggleItem = itemId => {
+    console.log(itemId)
+    this.setState({...this.state, groceries: this.state.groceries.map(item => { 
+      if (item.id === itemId) {
+        return {...item, purchased: !item.purchased}
+      }
+      return item
+    })})
+  }
   // Class methods to update state
+  clearPurchased = () => {
+    this.setState({...this.state, groceries: this.state.groceries.filter(item => {
+      if (!item.purchased) return item;
+    })})
+  }
   render() {
     return (
       <div className="App">
         <div className="header">
            <h1>Shopping List</h1>
-           <ListForm />
+           <ListForm addItem={this.addItem} />
          </div>
-        <GroceryList groceries={this.state.groceries} />
-        <button className="clear-btn">Clear Purchased</button>
+        <GroceryList toggleItem={this.toggleItem} groceries={this.state.groceries} />
+        <button onClick={this.clearPurchased} className="clear-btn">Clear Purchased</button>
         {/* <button onClick={(e) => this.addItem(e, 'orange')}>Add orange</button> */ }
        </div>
     );
